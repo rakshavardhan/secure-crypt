@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Encryption & Decryption</title>
+  <style>
+    body {
+      background: url('https://img.freepik.com/premium-vector/vector-dynamic-line-dark-technology-background_93566-14.jpg?semt=ais_hybrid') no-repeat center center/cover;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      color: #00ff99;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #00ff99;
+      border-radius: 15px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0px 4px 20px rgba(0, 255, 153, 0.3);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+      margin-bottom: 20px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+
+    button {
+      background: transparent;
+      border: 2px solid #00ff99;
+      color: #00ff99;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #00ff99;
+      color: #000;
+      box-shadow: 0px 0px 15px #00ff99;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    input[type="password"], input[type="file"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #00ff99;
+      border-radius: 8px;
+      outline: none;
+      margin-bottom: 20px;
+      background: #1b1b1b;
+      color: #00ff99;
+      text-shadow: 0 0 5px #00ff99;
+    }
+
+    .file-upload {
+      margin-top: 20px;
+    }
+
+    .output {
+      margin-top: 20px;
+    }
+
+    #outputImage {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .back-to-home {
+      color: #00ffcc;
+      text-decoration: none;
+      margin-top: 20px;
+      display: block;
+      font-size: 1rem;
+      text-shadow: 0 0 5px #00ff99;
+    }
+
+    #downloadLink, #downloadDecryptedLink {
+      margin-top: 20px;
+    }
+
+    #downloadLink a, #downloadDecryptedLink a {
+      text-decoration: none;
+    }
+
+    .download-button {
+      background: transparent;
+      border: 2px solid #00ff99;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #00ff99;
+      font-size: 1rem;
+      width: 100%;
+      cursor: pointer;
+      text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+      transition: all 0.3s ease;
+    }
+
+    .download-button:hover {
+      background: #00ff99;
+      color: #000;
+      box-shadow: 0px 0px 15px #00ff99;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Home Page -->
+  <div class="container" id="homePage">
+    <h1>Image Encryption & Decryption</h1>
+    <div class="button-group">
+      <button id="encryptButton">Encrypt</button>
+      <button id="decryptButton">Decrypt</button>
+    </div>
+  </div>
+
+  <!-- Encrypt Page -->
+  <div class="container hidden" id="encryptPage">
+    <h1>Encrypt Image</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <input type="password" id="password" placeholder="Set Password">
+    <button id="submitEncrypt">Submit</button>
+    
+    <canvas id="canvas" class="hidden"></canvas>
+    <div id="downloadLink" class="hidden">
+      <a id="downloadEncrypted" href="#" download="encryptedImage.png">
+        <button class="download-button">Download Encrypted Image</button>
+      </a>
+    </div>
+    <a href="#" class="back-to-home" id="backToHomeEncrypt">Back to Home</a>
+  </div>
+
+  <!-- Decrypt Page -->
+  <div class="container hidden" id="decryptPage">
+    <h1>Decrypt Image</h1>
+    <input type="file" id="encryptedImageInput" accept="image/*">
+    <input type="password" id="decryptPassword" placeholder="Enter Password">
+    <button id="submitDecrypt">Submit</button>
+    
+    <canvas id="decryptCanvas" class="hidden"></canvas>
+    <div id="output" class="output hidden">
+      <img id="outputImage" alt="Decrypted Image">
+      <div id="downloadDecryptedLink" class="hidden">
+        <a id="downloadDecrypted" href="#" download="decryptedImage.png">
+          <button class="download-button">Download Decrypted Image</button>
+        </a>
+      </div>
+    </div>
+    <a href="#" class="back-to-home" id="backToHomeDecrypt">Back to Home</a>
+  </div>
+
+
+  <script>
+    const homePage = document.getElementById('homePage');
+    const encryptPage = document.getElementById('encryptPage');
+    const decryptPage = document.getElementById('decryptPage');
+    const encryptButton = document.getElementById('encryptButton');
+    const decryptButton = document.getElementById('decryptButton');
+    const backToHomeEncrypt = document.getElementById('backToHomeEncrypt');
+    const backToHomeDecrypt = document.getElementById('backToHomeDecrypt');
+    const passwordInput = document.getElementById('password');
+    const imageInput = document.getElementById('imageInput');
+    const encryptedImageInput = document.getElementById('encryptedImageInput');
+    const submitEncrypt = document.getElementById('submitEncrypt');
+    const submitDecrypt = document.getElementById('submitDecrypt');
+    const canvas = document.getElementById('canvas');
+    const decryptCanvas = document.getElementById('decryptCanvas');
+    const output = document.getElementById('output');
+    const outputImage = document.getElementById('outputImage');
+    const downloadLink = document.getElementById('downloadLink');
+    const downloadEncrypted = document.getElementById('downloadEncrypted');
+    const downloadDecryptedLink = document.getElementById('downloadDecryptedLink');
+    const downloadDecrypted = document.getElementById('downloadDecrypted');
+    const decryptPassword = document.getElementById('decryptPassword');
+    let encryptedImage = null;
+
+    // Helper to convert password to a numeric key
+    const generateKeyFromPassword = (password) => {
+      let key = 0;
+      for (let i = 0; i < password.length; i++) {
+        key += password.charCodeAt(i);
+      }
+      return key % 256;
+    };
+
+    // Home Page Navigation
+    encryptButton.addEventListener('click', () => {
+      homePage.classList.add('hidden');
+      encryptPage.classList.remove('hidden');
+    });
+
+    decryptButton.addEventListener('click', () => {
+      homePage.classList.add('hidden');
+      decryptPage.classList.remove('hidden');
+    });
+
+    backToHomeEncrypt.addEventListener('click', (e) => {
+      e.preventDefault();
+      encryptPage.classList.add('hidden');
+      homePage.classList.remove('hidden');
+    });
+
+    backToHomeDecrypt.addEventListener('click', (e) => {
+      e.preventDefault();
+      decryptPage.classList.add('hidden');
+      homePage.classList.remove('hidden');
+    });
+
+    // Encrypting the image
+    submitEncrypt.addEventListener('click', () => {
+      const password = passwordInput.value.trim();
+      if (!password || !imageInput.files[0]) {
+        alert('Please provide a password and select an image!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+
+          const imageData = ctx.getImageData(0, 0, img.width, img.height);
+          const data = imageData.data;
+          const key = generateKeyFromPassword(password);
+
+          for (let i = 0; i < data.length; i++) {
+            data[i] ^= key; // XOR operation for encryption
+          }
+
+          ctx.putImageData(imageData, 0, 0);
+          encryptedImage = canvas.toDataURL();
+          downloadEncrypted.href = encryptedImage;
+          downloadLink.classList.remove('hidden');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    });
+
+    // Decrypting the image
+    submitDecrypt.addEventListener('click', () => {
+      const password = decryptPassword.value.trim();
+      if (!password || !encryptedImageInput.files[0]) {
+        alert('Please provide a password and select an encrypted image!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          decryptCanvas.width = img.width;
+          decryptCanvas.height = img.height;
+          const ctx = decryptCanvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+
+          const imageData = ctx.getImageData(0, 0, img.width, img.height);
+          const data = imageData.data;
+          const key = generateKeyFromPassword(password);
+
+          for (let i = 0; i < data.length; i++) {
+            data[i] ^= key; // XOR operation for decryption
+          }
+
+          ctx.putImageData(imageData, 0, 0);
+          outputImage.src = decryptCanvas.toDataURL();
+          output.classList.remove('hidden');
+          downloadDecryptedLink.classList.remove('hidden');
+          downloadDecrypted.href = decryptCanvas.toDataURL();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(encryptedImageInput.files[0]);
+    });
+  </script>
+</body>
+</html>

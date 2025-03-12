@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background: url('https://img.freepik.com/free-vector/gradient-black-technology-background_23-2149209060.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ff99;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #00ff99;
+      border-radius: 15px;
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0px 0px 20px rgba(0, 255, 153, 0.5);
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-shadow: 0 0 15px #00ff99, 0 0 30px #00ff99;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #00ffaa;
+      text-shadow: 0 0 5px #00ff99;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 1.5rem;
+      background: transparent;
+      color: #00ff99;
+      border: 2px solid #00ff99;
+      padding: 15px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+      transition: all 0.3s ease;
+      animation: glitch 3s infinite;
+    }
+
+    button:hover {
+      background: #00ff99;
+      color: #000;
+      box-shadow: 0px 0px 15px #00ff99;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% {
+        text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+      }
+      50% {
+        text-shadow: 0 0 20px #00ffaa, 0 0 40px #00ffaa;
+      }
+      100% {
+        text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+      }
+    }
+
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+      25% {
+        transform: translate(3px, -3px);
+      }
+      50% {
+        transform: translate(-3px, 3px);
+      }
+      75% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to CyberSecure Vault</h1>
+    <p>
+      Step into the thrilling world of encryption and data hiding. 
+      Here, we combine advanced technology with ease of use to make your experience both secure and exciting.
+    </p>
+    <p>
+      Protect your data like a pro hacker and uncover the secrets of cybersecurity.
+      Let's embark on this journey together and make your data unbreakable.
+    </p>
+    <button onclick="location.href='home.html'">Let's Go</button>
+  </div>
+</body>
+</html>

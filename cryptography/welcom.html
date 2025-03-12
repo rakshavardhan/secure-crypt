@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to CryptArcanum</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* body {
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Jaro:opsz@6..72&family=Protest+Revolution&display=swap');
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('wel.jpg'); /* Replace with Halloween-themed background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(149, 140, 140, 0.5); /* Semi-transparent background for readability */
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 1000px;
+            max-height: 1000px;
+            width: 80%;
+            animation: slideUp 2s ease-out;
+        }
+
+        h1,h2  {
+            font-size: 60px;
+            color:orangered;;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: flicker 1.5s infinite alternate;
+            
+            font-weight: 600;
+           
+           font-optical-sizing: auto;
+           font-weight: 400;
+           font-style: normal;
+           font-family: "Protest Revolution", sans-serif;
+           
+           
+        
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .buttons .button {
+            text-decoration: none;
+            background-color: #1DB2A4;;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .buttons .button:hover {
+            background-color:#0a867a;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to</h2>
+        <h1> CryptArcanum</h1>
+        <p>Welcome, brave traveler, to the world of CryptArcanum, where secrets are hidden in the shadows and only the brave dare to uncover them. This Halloween, unlock the mysteries of cryptography, protect your messages from dark forces, and embark on a journey through the encrypted realms.</p>
+        <p>Are you ready to enter the world of cryptography and discover the hidden magic? Protect your secrets with encryption and unravel mysteries with decryption. Dive deep into the arcane arts of CryptArcanum.</p>
+        <div class="buttons">
+            <a href="index.html" class="button">Enter CryptArcanum</a>
+        </div>
+    </div>
+</body>
+</html>

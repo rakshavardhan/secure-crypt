@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt/Decrypt Message</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('ij.jpg'); /* Replace 'image.png' with your image path */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            height:50%;
+
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.3); /* White background with transparency */
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .partition {
+            text-align: center;
+            width: 45%;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #1DB2A4;;
+            margin-bottom: 15px;
+            font-style:green serif;
+            font-size: 30px;
+        }
+
+        p {
+            color: #555555;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons .button {
+            text-decoration: none;
+            background-color:#158d81;
+            color: #1DB2A4;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .buttons .button:hover {
+            background-color: #004080;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Encrypt Partition -->
+        <div class="partition">
+            <h2>Encrypt Me</h2>
+            <p>Transform your secrets into encrypted codes and safeguard your messages from prying eyes!</p>
+            <div class="buttons">
+                <a href="encrypt.html" class="button">Go to Encrypt Page</a>
+            </div>
+        </div>
+
+        <!-- Decrypt Partition -->
+        <div class="partition">
+            <h2>Decrypt Me</h2>
+            <p>Unlock the hidden secrets of encrypted messages and discover their true meaning!</p>
+            <div class="buttons">
+                <a href="decryption.html" class="button">Go to Decrypt Page</a>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

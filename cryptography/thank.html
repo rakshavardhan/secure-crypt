@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Visiting CryptArcNum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        h1 {
+            font-size: 60px;
+            color: #1DB2A4;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: flicker 2s infinite alternate;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: #f44336;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #1A9A8F;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- <video autoplay muted loop class="video-background">
+        <source src="cryptography-video.mp4" type="video/mp4">Replace with your cryptography-related video -->
+        <!-- Your browser does not support the video tag. -->
+    <!-- </video> -->
+
+    
+
+    <div class="content">
+        <img src="gifimage.gif" alt="">
+        <h1>Thank You for Visiting CryptArcNum!</h1>
+        <p>We hope you enjoyed exploring our encryption and decryption tools. Stay secure, stay crypted!</p>
+        <a href="index.html" class="cta-button">Back to Home</a>
+    </div>
+
+</body>
+</html>

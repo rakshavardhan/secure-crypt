@@ -1,0 +1,132 @@
+/* Body styling with background image */
+body {
+    font-family: Arial, sans-serif;
+    background-color: hsl(210, 38%, 50%);
+    margin: 10px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('encrypt.jpg'); /* Add the image path */
+    background-size: cover; /* Ensure the image covers the entire viewport */
+    background-position: center; /* Center the image */
+}
+
+/* Container styling */
+ .container {
+    text-align: center;
+    max-width: 800px;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.3); 
+     border-radius: 8px;
+    padding: 0px;
+    width: 90%;
+    max-width: 600px; 
+ }
+/* .textarea {
+    width: 100%;
+    height: 120px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: vertical; 
+} */
+/* Styling for textarea and input fields */
+textarea, input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+/* Button styles */
+button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    background-color:lightblue;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color:lightblue;
+}
+
+
+
+
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for Copy Button */
+.copy-button {
+    background-color: transparent;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+    background-color: #218838;
+}
+
+/* Navigation Button */
+.nav-button {
+    background-color: #6c757d;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    textarea,
+    input[type="password"],
+    button {
+        font-size: 14px;
+    }
+}
+

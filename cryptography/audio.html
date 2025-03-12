@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Encryption & Decryption</title>
+  <style>
+    body {
+      background: url('https://i.pinimg.com/736x/25/a5/58/25a558a6321380a5a826c6e5f5c95d29.jpg') no-repeat center center/cover;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #00ff9d; /* Neon green text */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.8); /* Darker glassy effect */
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0px 8px 30px rgba(0, 255, 157, 0.3); /* Neon green shadow */
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #00ff9d;
+      text-shadow: 0 0 10px #00ff9d, 0 0 20px #007b55;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #00ff9d, #007b55); /* Green gradient */
+      border: none;
+      color: white;
+      padding: 16px 35px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0px 6px 20px rgba(0, 255, 157, 0.3); /* Glow */
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #007b55, #00ff9d);
+      transform: translateY(-4px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    input[type="password"], input[type="file"], input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      margin: 15px 0;
+      background: rgba(255, 255, 255, 0.1);
+      color: #00ff9d;
+      font-size: 1rem;
+    }
+
+    input[type="file"]::file-selector-button {
+      color: #00ff9d;
+      background: transparent;
+      border: 1px solid #00ff9d;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    #microphoneButton {
+      background: linear-gradient(135deg, #ff4b5c, #ff2342);
+      border-radius: 50%;
+      padding: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
+    }
+
+    #microphoneButton:hover {
+      background: linear-gradient(135deg, #ff2342, #ff4b5c);
+      transform: scale(1.1);
+    }
+
+    .output {
+      margin-top: 20px;
+    }
+
+    #audioPlayer {
+      width: 100%;
+      margin-top: 15px;
+      border: 2px solid #00ff9d;
+      border-radius: 10px;
+    }
+
+    #downloadLink, #decryptedDownload {
+      margin-top: 20px;
+    }
+
+    #downloadEncrypted, #downloadDecrypted {
+      background: #007b55;
+      color: #00ff9d;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    #downloadEncrypted:hover, #downloadDecrypted:hover {
+      background: #00ff9d;
+      color: #000;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .backButton {
+      color: #00ff9d;
+      margin-top: 20px;
+      display: inline-block;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+    }
+
+    .backButton:hover {
+      color: #007b55;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Home Page -->
+  <div class="container" id="homePage">
+    <h1>Audio Encryption & Decryption</h1>
+    <div class="button-group">
+      <button id="encryptButton">Encrypt</button>
+      <button id="decryptButton">Decrypt</button>
+    </div>
+  </div>
+
+  <!-- Encrypt Page -->
+  <div class="container hidden" id="encryptPage">
+    <h1>Encrypt Audio</h1>
+    <input type="file" id="audioInput" accept="audio/*">
+    <input type="password" id="password" placeholder="Set Password">
+    <div>
+      <button id="submitEncrypt">Submit</button>
+    </div>
+    <div id="downloadLink" class="hidden">
+      <a id="downloadEncrypted" href="#" download="encryptedAudio.wav">
+        <button>Download Encrypted Audio</button>
+      </a>
+    </div>
+    <span class="backButton" id="backToHomeEncrypt">Back to Home</span>
+  </div>
+
+  <!-- Decrypt Page -->
+  <div class="container hidden" id="decryptPage">
+    <h1>Decrypt Audio</h1>
+    <input type="file" id="encryptedAudioInput" accept="audio/*">
+    <input type="password" id="decryptPassword" placeholder="Enter Password">
+    <div>
+      <button id="submitDecrypt">Submit</button>
+    </div>
+    <div id="decryptedAudioOutput" class="output hidden">
+      <audio id="audioPlayer" controls></audio>
+      <a id="downloadDecrypted" href="#" download="decryptedAudio.wav">
+        <button>Download Decrypted Audio</button>
+      </a>
+    </div>
+    <span class="backButton" id="backToHomeDecrypt">Back to Home</span>
+  </div>
+
+  <!-- Microphone Button -->
+  <!-- <div class="container">
+    <h1>Record Audio</h1>
+    <button id="microphoneButton">🎤</button>
+  </div> -->
+
+  <script>
+    const homePage = document.getElementById('homePage');
+    const encryptPage = document.getElementById('encryptPage');
+    const decryptPage = document.getElementById('decryptPage');
+    const encryptButton = document.getElementById('encryptButton');
+    const decryptButton = document.getElementById('decryptButton');
+    const backToHomeEncrypt = document.getElementById('backToHomeEncrypt');
+    const backToHomeDecrypt = document.getElementById('backToHomeDecrypt');
+    const passwordInput = document.getElementById('password');
+    const audioInput = document.getElementById('audioInput');
+    const encryptedAudioInput = document.getElementById('encryptedAudioInput');
+    const submitEncrypt = document.getElementById('submitEncrypt');
+    const submitDecrypt = document.getElementById('submitDecrypt');
+    const downloadLink = document.getElementById('downloadLink');
+    const downloadEncrypted = document.getElementById('downloadEncrypted');
+    const decryptedAudioOutput = document.getElementById('decryptedAudioOutput');
+    const downloadDecrypted = document.getElementById('downloadDecrypted');
+    const decryptPassword = document.getElementById('decryptPassword');
+    let encryptedAudioBlob = null;
+
+    // Helper to convert password to a numeric key
+    const generateKeyFromPassword = (password) => {
+      let key = 0;
+      for (let i = 0; i < password.length; i++) {
+        key += password.charCodeAt(i);
+      }
+      return key % 256;
+    };
+
+    // Navigation Buttons
+    encryptButton.addEventListener('click', () => {
+      homePage.classList.add('hidden');
+      encryptPage.classList.remove('hidden');
+    });
+
+    decryptButton.addEventListener('click', () => {
+      homePage.classList.add('hidden');
+      decryptPage.classList.remove('hidden');
+    });
+
+    backToHomeEncrypt.addEventListener('click', (e) => {
+      e.preventDefault();
+      encryptPage.classList.add('hidden');
+      homePage.classList.remove('hidden');
+    });
+
+    backToHomeDecrypt.addEventListener('click', (e) => {
+      e.preventDefault();
+      decryptPage.classList.add('hidden');
+      homePage.classList.remove('hidden');
+    });
+
+    // Encrypting the audio
+    submitEncrypt.addEventListener('click', () => {
+      const password = passwordInput.value.trim();
+      if (!password || !audioInput.files[0]) {
+        alert('Please provide a password and select an audio file!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const audioData = e.target.result;
+        const key = generateKeyFromPassword(password);
+
+        const encryptedAudio = new ArrayBuffer(audioData.byteLength);
+        const view = new DataView(encryptedAudio);
+        const data = new DataView(audioData);
+        for (let i = 0; i < data.byteLength; i++) {
+          view.setUint8(i, data.getUint8(i) ^ key);
+        }
+        encryptedAudioBlob = new Blob([encryptedAudio], { type: 'audio/wav' });
+
+        const encryptedAudioURL = URL.createObjectURL(encryptedAudioBlob);
+        downloadLink.classList.remove('hidden');
+        downloadEncrypted.href = encryptedAudioURL;
+      };
+      reader.readAsArrayBuffer(audioInput.files[0]);
+    });
+
+    // Decrypting the audio
+    submitDecrypt.addEventListener('click', () => {
+      const password = decryptPassword.value.trim();
+      if (!password || !encryptedAudioInput.files[0]) {
+        alert('Please provide a password and select an encrypted audio file!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const encryptedAudioData = e.target.result;
+        const key = generateKeyFromPassword(password);
+
+        const decryptedAudio = new ArrayBuffer(encryptedAudioData.byteLength);
+        const view = new DataView(decryptedAudio);
+        const data = new DataView(encryptedAudioData);
+        for (let i = 0; i < data.byteLength; i++) {
+          view.setUint8(i, data.getUint8(i) ^ key);
+        }
+
+        const decryptedAudioBlob = new Blob([decryptedAudio], { type: 'audio/wav' });
+        const decryptedAudioURL = URL.createObjectURL(decryptedAudioBlob);
+
+        decryptedAudioOutput.classList.remove('hidden');
+        document.getElementById('audioPlayer').src = decryptedAudioURL;
+        downloadDecrypted.href = decryptedAudioURL;
+      };
+      reader.readAsArrayBuffer(encryptedAudioInput.files[0]);
+    });
+
+    // Microphone Button functionality
+    document.getElementById('microphoneButton').addEventListener('click', () => {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+          .then(stream => {
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+
+            const audioChunks = [];
+            mediaRecorder.ondataavailable = event => {
+              audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+              const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+              const audioURL = URL.createObjectURL(audioBlob);
+              const audio = new Audio(audioURL);
+              audio.play();
+            };
+
+            setTimeout(() => {
+              mediaRecorder.stop();
+            }, 5000); // Record for 5 seconds
+          })
+          .catch(err => alert('Microphone access denied'));
+      } else {
+        alert('Microphone access is not supported');
+      }
+    });
+  </script>
+</body>
+</html>

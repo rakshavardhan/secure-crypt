@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decrypt Text</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- FontAwesome CDN -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('decrypt.png'); /* Set background image */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(139, 130, 130, 0.6); /* Dark overlay to match with the background */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #1DB2A4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .section {
+            margin: 20px 0;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: white;
+            font-size: 18px;
+            resize: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #1DB2A4;
+        }
+
+        button {
+            background-color: #1DB2A4;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1A9A8F;
+            transform: scale(1.05);
+        }
+
+        .nav-button {
+            background-color: #f44336;
+            color: white;
+            padding: 14px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-items: center;
+            width: auto;
+            height: auto;
+        }
+
+        .nav-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            width: 48%;
+            margin: 0 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Decrypt Your Message</h2>
+
+        <!-- Decryption Form Section -->
+        <div class="section">
+            <textarea id="textToDecrypt" placeholder="Encrypted text"></textarea>
+            <input type="password" id="decryptPassword" placeholder="Password for decryption">
+            <button onclick="decryptText()">Decrypt Text</button>
+        </div>
+
+        <!-- Decrypted Text Display Section -->
+        <div class="section">
+            <textarea id="decryptedText" readonly placeholder="Decrypted text will appear here"></textarea>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="buttons">
+            <button onclick="window.location.href='encrypt.html'" class="nav-button">Go to Encrypt Text</button>
+            <button onclick="window.location.href='thank.html'" class="nav-button">End</button>
+        </div>
+    </div>
+
+    <script>
+        
+        // Modified decryption logic to handle numbers correctly
+        function decryptText() {
+            const password = document.getElementById("decryptPassword").value;
+            const encryptedText = document.getElementById("textToDecrypt").value;
+
+            if (!password || !encryptedText) {
+                alert("Please provide both a password and encrypted text.");
+                return;
+            }
+
+            const shift = password.length; // Using password length for shift value
+            let decryptedText = "";
+
+            for (let i = 0; i < encryptedText.length; i++) {
+                let char = encryptedText[i];
+
+                // Decrypt alphabetic characters
+                if (char.match(/[a-z]/i)) {
+                    let charCode = char.charCodeAt(0);
+                    let base = charCode >= 65 && charCode <= 90 ? 65 : 97;
+                    decryptedText += String.fromCharCode(((charCode - base - shift + 26) % 26 + 26) % 26 + base);
+                }
+                // Decrypt numeric characters
+                else if (char.match(/[0-9]/)) {
+                    let charCode = char.charCodeAt(0);
+                    let base = 48; // ASCII code for '0'
+                    decryptedText += String.fromCharCode(((charCode - base - shift + 10) % 10 + 10) % 10 + base);
+                }
+                // Leave special characters and spaces unchanged
+                else {
+                    decryptedText += char;
+                }
+            }
+
+            document.getElementById("decryptedText").value = decryptedText;
+        }
+    </script>
+</body>
+</html>
